@@ -27,15 +27,41 @@ def test_new_colour_different
   refute @rocket.colour == "Red"
 end
 
-def test_lift_off
-  @rocket.flying? == false
+def test_lift_off_with_rocket_on_ground
+  assert @rocket.lift_off == true
+  assert @rocket.flying? == true
+end
+
+def test_lift_off_with_rocket_in_flight
+  @rocket.lift_off
+  assert @rocket.lift_off == false
+  assert @rocket.flying? == true
+end
+
+def test_land_with_rocket_in_flight
+  @rocket = Rocket.new(:flying => true)
+  assert @rocket.land == true
+end
+
+def test_flying_rocket_becomes_not_flying_after_land
+  @rocket = Rocket.new(:flying => true)
+  @rocket.land
   assert @rocket.flying? == false
 end
 
-def test_lift_off_different
-  @rocket.flying?
-  refute @rocket.flying?
+def test_grounded_rocket_cant_land
+  assert @rocket.flying? == false
+  assert @rocket.land == false
 end
 
+def test_status_of_flying_rocket
+  @rocket = Rocket.new(:flying => true)
+  assert @rocket.status
+end
+
+def test_status_of_rocket_not_flying
+  assert @rocket.flying? == false
+  refute @rocket.status == false
+end
 
 end
