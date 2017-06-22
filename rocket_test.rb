@@ -56,12 +56,12 @@ end
 
 def test_status_of_flying_rocket
   @rocket = Rocket.new(:flying => true)
-  assert @rocket.status
+  assert_equal @rocket.status , "Rocket #{@rocket.name} is flying through the sky!"
 end
 
 def test_status_of_rocket_not_flying
-  assert @rocket.flying? == false
-  refute @rocket.status == false
+  @rocket.flying?
+  assert_equal @rocket.status , "Rocket #{@rocket.name} is ready for lift off!"
 end
 
 end
